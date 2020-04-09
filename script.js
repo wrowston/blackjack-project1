@@ -1,4 +1,4 @@
-const cardValue = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'Ace']
+const cardValue = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace']
 const cardSuit = ['hearts', 'spades', 'clubs', 'diamonds']
 let deck = []
 let user = {
@@ -25,24 +25,31 @@ function createDeck() {
     }
 }
 
-//testing creating image element
-createDeck()
-const cardParentEl = document.querySelectorAll('.cards')[0]
-let cardImageElement = document.createElement('img')
-cardImageElement.setAttribute('src', deck[17].image)
-cardParentEl.appendChild(cardImageElement)
+function dealerCardImage(image) {
+    const cardParentEl = document.querySelectorAll('.cards')[0]
+    let cardImageElement = document.createElement('img')
+    cardImageElement.setAttribute('src', image)
+    cardParentEl.appendChild(cardImageElement)
+}
+
+function userCardImage(image) {
+    const cardParentEl = document.querySelectorAll('.cards')[1]
+    let cardImageElement = document.createElement('img')
+    cardImageElement.setAttribute('src', image)
+    cardParentEl.appendChild(cardImageElement)
+}
 
 function getScore(player) {
     let cards = player.cards
     let score = 0
     for (let i = 0; i < cards.length; i++) {
-        if (score > 10 && cards[i].value === 'Ace') {
+        if (score > 10 && cards[i].value === 'ace') {
             score += 1
-        } else if (score <= 10 && cards[i].value === 'Ace') {
+        } else if (score <= 10 && cards[i].value === 'ace') {
             score += 11
-        } else if (cards[i].value === 'J' ||
-            cards[i].value === 'Q' ||
-            cards[i].value === 'K') {
+        } else if (cards[i].value === 'jacl' ||
+            cards[i].value === 'queen' ||
+            cards[i].value === 'king') {
             score += 10
         } else {
             score += Number(cards[i].value)
@@ -55,13 +62,13 @@ function getScore(player) {
 // use to display dealer score when only one card is shown
 function getInitialDealerScore() {
     let score = 0
-    if (score > 10 && dealer.cards[1].value === 'Ace') {
+    if (score > 10 && dealer.cards[1].value === 'ace') {
         score += 1
-    } else if (score <= 10 && dealer.cards[1].value === 'Ace') {
+    } else if (score <= 10 && dealer.cards[1].value === 'ace') {
         score += 11
-    } else if (dealer.cards[1].value === 'J' ||
-        dealer.cards[1].value === 'Q' ||
-        dealer.cards[1].value === 'K') {
+    } else if (dealer.cards[1].value === 'jack' ||
+        dealer.cards[1].value === 'queen' ||
+        dealer.cards[1].value === 'king') {
         score += 10
     } else {
         score += Number(dealer.cards[1].value)
@@ -104,6 +111,11 @@ function dealCards() {
 
     user.cards.push(drawCard())
     dealer.cards.push(drawCard())
+
+    userCardImage(user.cards[0].image)
+    userCardImage(user.cards[1].image)
+    dealerCardImage(dealer.cards[0].backsideImage)
+    dealerCardImage(dealer.cards[1].image)
 
     getScore(user)
     getInitialDealerScore()
@@ -184,37 +196,37 @@ function playGame() {
     console.log('user wins', user.wins)
     console.log('dealer wins', dealer.wins)
 
-    console.log('------------------')
-    console.log('------------------')
-    console.log('------------------')
-    console.log('------------------')
-    dealCards()
+    // console.log('------------------')
+    // console.log('------------------')
+    // console.log('------------------')
+    // console.log('------------------')
+    // dealCards()
 
-    console.log('user score', user.score)
-    console.log('user cards', user.cards)
-    console.log('VISIBLE TO USER dealer score', getInitialDealerScore())
-    console.log('ACTUAL dealer score', dealer.score)
-    console.log('dealer cards', dealer.cards)
+    // console.log('user score', user.score)
+    // console.log('user cards', user.cards)
+    // console.log('VISIBLE TO USER dealer score', getInitialDealerScore())
+    // console.log('ACTUAL dealer score', dealer.score)
+    // console.log('dealer cards', dealer.cards)
 
-    console.log('------------------')
+    // console.log('------------------')
 
-    hit()
-    console.log('user score AFTER HIT', user.score)
-    console.log('user cards AFTER HIT', user.cards)
-    console.log('deck length', deck.length)
-    console.log('------------------')
+    // hit()
+    // console.log('user score AFTER HIT', user.score)
+    // console.log('user cards AFTER HIT', user.cards)
+    // console.log('deck length', deck.length)
+    // console.log('------------------')
 
-    dealerDraws()
-    console.log('dealer score AFTER dealerDraws', dealer.score)
-    console.log('dealer cards AFTER dealerDraws', dealer.cards)
-    console.log('deck length', deck.length)
+    // dealerDraws()
+    // console.log('dealer score AFTER dealerDraws', dealer.score)
+    // console.log('dealer cards AFTER dealerDraws', dealer.cards)
+    // console.log('deck length', deck.length)
 
-    console.log('------------------')
+    // console.log('------------------')
 
-    compareScores()
-    console.log('pushes', user.pushes)
-    console.log('user wins', user.wins)
-    console.log('dealer wins', dealer.wins)
+    // compareScores()
+    // console.log('pushes', user.pushes)
+    // console.log('user wins', user.wins)
+    // console.log('dealer wins', dealer.wins)
 }
 
 playGame()
