@@ -130,10 +130,12 @@ console.log('------------------')
 
 function dealerDraws() {
     console.log('dealer score 1st time in function', dealer.score)
-    if (user.score <=21 && user.score > dealer.score && dealer.score < 19) {
-        dealer.cards.push(drawCard())
+    for (let i = 0; i < 5; i++) {
+        if (user.score <=21 && user.score > dealer.score && dealer.score < 19) {
+            dealer.cards.push(drawCard())
+        }
+        getScore(dealer)
     }
-    getScore(dealer)
     console.log('dealer score 2nd time in function', dealer.score)
 }
 
