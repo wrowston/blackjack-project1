@@ -25,13 +25,12 @@ function createDeck() {
     }
 }
 
+//testing creating image element
 createDeck()
-// console.log(deck[17].image)
-// console.log(deck)
-
-// let cardElement = document.createElement('img')
-// cardElement.setAttribute('src', deck[17].image)
-// document.body.appendChild(cardElement)
+const cardParentEl = document.querySelectorAll('.cards')[0]
+let cardImageElement = document.createElement('img')
+cardImageElement.setAttribute('src', deck[17].image)
+cardParentEl.appendChild(cardImageElement)
 
 function getScore(player) {
     let cards = player.cards
