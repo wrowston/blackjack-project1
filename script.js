@@ -103,19 +103,42 @@ function dealCards() {
 }
 dealCards()
 
-// console.log(user.score)
-// console.log(user.cards)
-console.log(dealer.score)
-console.log(dealer.cards)
+console.log('user score', user.score)
+console.log('user cards', user.cards)
+console.log('dealer score', dealer.score)
+// console.log(getDealerScore())
+console.log('dealer cards', dealer.cards)
+
+console.log('------------------')
 // console.log(dealer.cards)
 
 function hit() {
     user.cards.push(drawCard())
-    getUserScore(user)
+    getScore(user)
 }
 
-// hit()
-// console.log(user.score)
-// console.log(user.cards)
+hit()
+console.log('user score', user.score)
+console.log('user cards', user.cards)
+console.log('dealer score', dealer.score)
+console.log('dealer cards', dealer.cards)
 // console.log(deck[0])
-console.log(deck.length)
+console.log('deck length', deck.length)
+console.log('------------------')
+
+function dealerDraws() {
+    getScore(dealer)
+    console.log('dealer score 1st time in function', dealer.score)
+    if (user.score <=21 && user.score > dealer.score && dealer.score < 19) {
+        dealer.cards.push(drawCard())
+    }
+    getScore(dealer)
+    console.log('dealer score 2nd time in function', dealer.score)
+}
+
+dealerDraws()
+console.log('user score', user.score)
+console.log('user cards', user.cards)
+console.log('dealer score', dealer.score)
+console.log('dealer cards', dealer.cards)
+console.log('deck length', deck.length)
