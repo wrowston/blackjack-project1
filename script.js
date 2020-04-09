@@ -50,7 +50,8 @@ function getScore(player) {
     return player.score
 }
 
-function getDealerScore() {
+// use to display dealer score when only one card is shown
+function getInitialDealerScore() {
     let score = 0
     if (score > 10 && dealer.cards[1].value === 'Ace') {
         score += 1
@@ -64,7 +65,7 @@ function getDealerScore() {
         score += Number(dealer.cards[1].value)
     }
     
-    dealer.score = score
+    // dealer.score = score
     return score
 }
 
@@ -99,14 +100,15 @@ function dealCards() {
     dealer.cards.push(drawCard())
 
     getScore(user)
-    getDealerScore()
+    getInitialDealerScore()
+    getScore(dealer)
 }
 dealCards()
 
 console.log('user score', user.score)
 console.log('user cards', user.cards)
-console.log('dealer score', dealer.score)
-// console.log(getDealerScore())
+console.log('VISIBLE TO USER dealer score', getInitialDealerScore())
+console.log('ACTUAL dealer score', dealer.score)
 console.log('dealer cards', dealer.cards)
 
 console.log('------------------')
@@ -127,7 +129,6 @@ console.log('deck length', deck.length)
 console.log('------------------')
 
 function dealerDraws() {
-    getScore(dealer)
     console.log('dealer score 1st time in function', dealer.score)
     if (user.score <=21 && user.score > dealer.score && dealer.score < 19) {
         dealer.cards.push(drawCard())
@@ -142,3 +143,22 @@ console.log('user cards', user.cards)
 console.log('dealer score', dealer.score)
 console.log('dealer cards', dealer.cards)
 console.log('deck length', deck.length)
+
+console.log('------------------')
+
+function compareScores() {
+    if (dealer.score <= 21) {
+        if (user.score <= 21 && user.score > dealer.score) {
+            console.log('user wins')
+        } else if (dealer.score === user.score) {
+            console.log("it's a push")
+        } else {
+            console.log('dealer wins')
+        }
+    } else {
+        if (user.score <= 21) {
+            console.log('user wins')
+        }
+    }
+}
+compareScores()
