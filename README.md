@@ -2,7 +2,9 @@
 
 # Description
 
+# Technologies Used
+
 # Important Links
 
 # Wireframe
-![Wireframe](wireframe.jpeg)
+![Wireframe](images/wireframe.jpeg)
