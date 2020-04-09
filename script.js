@@ -192,9 +192,6 @@ function stand() {
     setHoleCardImage(dealer.cards[0].image)
     dealerDraws()
     compareScores()
-    console.log('VISIBLE TO USER dealer score', getInitialDealerScore())
-    console.log('ACTUAL dealer score', dealer.score)
-    console.log('dealer cards', dealer.cards)
 }
 
 const dealBtn = document.querySelectorAll('.deal')[0]
