@@ -26,27 +26,32 @@ function createDeck() {
 }
 
 function dealerCardImage(image) {
-    const cardParentEl = document.querySelectorAll('.cards')[0]
+    const parent = document.querySelectorAll('.cards')[0]
     let cardImageElement = document.createElement('img')
     cardImageElement.setAttribute('src', image)
-    cardParentEl.appendChild(cardImageElement)
+    parent.appendChild(cardImageElement)
 }
 
 function userCardImage(image) {
-    const cardParentEl = document.querySelectorAll('.cards')[1]
+    const parent = document.querySelectorAll('.cards')[1]
     let cardImageElement = document.createElement('img')
     cardImageElement.setAttribute('src', image)
-    cardParentEl.appendChild(cardImageElement)
+    parent.appendChild(cardImageElement)
 }
 
 function removeImages() {
-    const cardParentEl = document.querySelectorAll('.cards')
-    for (let i = 0; i < cardParentEl.length; i++) {
-        let imgElements = cardParentEl[i].querySelectorAll('img')
+    const parent = document.querySelectorAll('.cards')
+    for (let i = 0; i < parent.length; i++) {
+        let imgElements = parent[i].querySelectorAll('img')
         for (let j = 0; j < imgElements.length; j++) {
-            cardParentEl[i].removeChild(imgElements[j])
+            parent[i].removeChild(imgElements[j])
         }
     }
+}
+
+function setHoleCardImage(image) {
+    const cardElement = document.querySelectorAll('.cards img')[0]
+    cardElement.setAttribute('src', image)
 }
 
 function getScore(player) {
@@ -184,7 +189,7 @@ function compareScores() {
 }
 
 function stand() {
-    dealerCardImage(dealer.cards[0].image)
+    setHoleCardImage(dealer.cards[0].image)
     dealerDraws()
     compareScores()
     console.log('VISIBLE TO USER dealer score', getInitialDealerScore())
