@@ -51,8 +51,21 @@ function getScore(player) {
 }
 
 function getDealerScore() {
-    let score = getScore(dealer)
-
+    let score = 0
+    if (score > 10 && dealer.cards[1].value === 'Ace') {
+        score += 1
+    } else if (score <= 10 && dealer.cards[1].value === 'Ace') {
+        score += 11
+    } else if (dealer.cards[1].value === 'J' ||
+    dealer.cards[1].value === 'Q' ||
+    dealer.cards[1].value === 'K') {
+        score += 10
+    } else {
+        score += Number(dealer.cards[1].value)
+    }
+    
+    dealer.score = score
+    return score
 }
 
 function shuffleCards(deck) {
@@ -85,13 +98,13 @@ function dealCards() {
     user.cards.push(drawCard())
     dealer.cards.push(drawCard())
 
-    getUserScore(user)
-    getUserScore(dealer)
+    getScore(user)
+    getDealerScore()
 }
 dealCards()
 
-console.log(user.score)
-console.log(user.cards)
+// console.log(user.score)
+// console.log(user.cards)
 console.log(dealer.score)
 console.log(dealer.cards)
 // console.log(dealer.cards)
