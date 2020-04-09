@@ -47,3 +47,20 @@ function drawCard() {
     deck.shift()
     return cardDrawn
 }
+
+function dealCards() {
+    deck.length = 0
+    createDeck()
+    shuffleCards(deck)
+    userCards.push(drawCard())
+    dealerCards.push(drawCard())
+    dealerCards[0].backsideImage = 'images/card-backside.png'
+
+    userCards.push(drawCard())
+    dealerCards.push(drawCard())
+}
+// dealCards()
+
+// console.log(userCards)
+// console.log(dealerCards)
+
