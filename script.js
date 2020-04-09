@@ -151,7 +151,6 @@ function compareScores() {
             console.log('user wins')
         }
     }
-
     user.wins = userWins
     dealer.wins = dealerWins
     user.pushes = pushes
