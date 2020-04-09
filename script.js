@@ -64,3 +64,10 @@ function dealCards() {
 // console.log(userCards)
 // console.log(dealerCards)
 
+function hit() {
+    userCards.push(drawCard())
+}
+
+// hit()
+console.log(deck[0])
+console.log(deck.length)
