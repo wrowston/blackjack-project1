@@ -25,6 +25,7 @@ function createDeck() {
     }
 }
 
+// creates image elements for the dealer's cards
 function dealerCardImage(image) {
     const parent = document.querySelectorAll('.cards')[0]
     let cardImageElement = document.createElement('img')
@@ -32,6 +33,7 @@ function dealerCardImage(image) {
     parent.appendChild(cardImageElement)
 }
 
+// creates image elements for the user's cards
 function userCardImage(image) {
     const parent = document.querySelectorAll('.cards')[1]
     let cardImageElement = document.createElement('img')
@@ -49,6 +51,7 @@ function removeImages() {
     }
 }
 
+// 'flips' the hole card by replacing the image 
 function setHoleCardImage(image) {
     const cardElement = document.querySelectorAll('.cards img')[0]
     cardElement.setAttribute('src', image)
@@ -93,6 +96,10 @@ function getInitialDealerScore() {
     return score
 }
 
+function displayScore(score, element) {
+    element.innerText = 'Score: ' + score
+}
+
 function shuffleCards(deck) {
     for (let i = 0; i < deck.length; i++) {
         let randomIndex = Math.floor(Math.random() * deck.length)
@@ -103,7 +110,6 @@ function shuffleCards(deck) {
     }
     return deck
 }
-// shuffleCards(deck)
 
 function drawCard() {
     const cardDrawn = deck[0]
@@ -133,9 +139,11 @@ function dealCards() {
     dealerCardImage(dealer.cards[0].backsideImage)
     dealerCardImage(dealer.cards[1].image)
 
-    getScore(user)
-    getInitialDealerScore()
+    displayScore(getScore(user), document.querySelectorAll('.score')[1])
+    displayScore(getInitialDealerScore(), document.querySelectorAll('.score')[0])
+
     getScore(dealer)
+    getScore(user)
 }
 
 function hit() {
@@ -144,20 +152,19 @@ function hit() {
 
     let index = user.cards.length - 1
     userCardImage(user.cards[index].image)
+    displayScore(getScore(user), document.querySelectorAll('.score')[1])
 }
 
 
 function dealerDraws() {
-    console.log('dealer score 1st time in function', dealer.score)
     for (let i = 0; i < 5; i++) {
         if (user.score <= 21 && user.score > dealer.score && dealer.score < 19) {
             dealer.cards.push(drawCard())
             let index = dealer.cards.length - 1
             dealerCardImage(dealer.cards[index].image)
         }
-        getScore(dealer)
+        displayScore(getScore(dealer), document.querySelectorAll('.score')[0])
     }
-    console.log('dealer score 2nd time in function', dealer.score)
 }
 
 
@@ -201,6 +208,12 @@ const standBtn = document.querySelectorAll('.stand')[0]
 dealBtn.addEventListener('click', dealCards)
 hitBtn.addEventListener('click', hit)
 standBtn.addEventListener('click', stand)
+
+
+
+
+
+
 // function playGame() {
 //     dealCards()
 
