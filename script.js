@@ -125,6 +125,9 @@ function dealCards() {
 function hit() {
     user.cards.push(drawCard())
     getScore(user)
+
+    let index = user.cards.length - 1
+    userCardImage(user.cards[index].image)
 }
 
 
