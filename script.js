@@ -30,23 +30,28 @@ createDeck()
 // cardElement.setAttribute('src', deck[17].image)
 // document.body.appendChild(cardElement)
 
-function getUserScore(player) {
-    let userCards = player.cards
+function getScore(player) {
+    let cards = player.cards
     let score = 0
-    for (let i = 0; i < userCards.length; i++) {
-        if (score > 10 && userCards[i].value === 'Ace') {
+    for (let i = 0; i < cards.length; i++) {
+        if (score > 10 && cards[i].value === 'Ace') {
             score += 1
-        } else if (score <= 10 && userCards[i].value === 'Ace') {
+        } else if (score <= 10 && cards[i].value === 'Ace') {
             score += 11
-        } else if (userCards[i].value === 'J' ||
-        userCards[i].value === 'Q' ||
-        userCards[i].value === 'K') {
+        } else if (cards[i].value === 'J' ||
+        cards[i].value === 'Q' ||
+        cards[i].value === 'K') {
             score += 10
         } else {
-            score += Number(userCards[i].value)
+            score += Number(cards[i].value)
         }   
     }
     player.score = score
+    return player.score
+}
+
+function getDealerScore() {
+    let score = getScore(dealer)
 
 }
 
@@ -81,11 +86,14 @@ function dealCards() {
     dealer.cards.push(drawCard())
 
     getUserScore(user)
+    getUserScore(dealer)
 }
 dealCards()
 
 console.log(user.score)
 console.log(user.cards)
+console.log(dealer.score)
+console.log(dealer.cards)
 // console.log(dealer.cards)
 
 function hit() {
@@ -93,8 +101,8 @@ function hit() {
     getUserScore(user)
 }
 
-hit()
-console.log(user.score)
-console.log(user.cards)
+// hit()
+// console.log(user.score)
+// console.log(user.cards)
 // console.log(deck[0])
 console.log(deck.length)
