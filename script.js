@@ -47,7 +47,7 @@ function getScore(player) {
             score += 1
         } else if (score <= 10 && cards[i].value === 'ace') {
             score += 11
-        } else if (cards[i].value === 'jacl' ||
+        } else if (cards[i].value === 'jack' ||
             cards[i].value === 'queen' ||
             cards[i].value === 'king') {
             score += 10
@@ -136,6 +136,8 @@ function dealerDraws() {
     for (let i = 0; i < 5; i++) {
         if (user.score <= 21 && user.score > dealer.score && dealer.score < 19) {
             dealer.cards.push(drawCard())
+            let index = dealer.cards.length - 1
+            dealerCardImage(dealer.cards[index].image)
         }
         getScore(dealer)
     }
