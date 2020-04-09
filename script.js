@@ -40,3 +40,10 @@ function shuffleCards(deck) {
     }
     return deck
 }
+// shuffleCards(deck)
+
+function drawCard() {
+    const cardDrawn = deck[0]
+    deck.shift()
+    return cardDrawn
+}
