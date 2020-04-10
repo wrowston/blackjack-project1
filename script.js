@@ -100,17 +100,20 @@ function displayScore(score, element) {
     element.innerText = 'Score: ' + score
 }
 
-function checkForBust(score) {
-    const message = document.querySelectorAll('.message')[0]
-    if (score > 21) {
-        stand()
-        message.innerText = 'You busted! The dealer wins!'
-    }
+function setMessage(message) {
+    const messageElement = document.querySelectorAll('.message')[0]
+    messageElement.innerText = message
 }
 
 function resetMessage() {
-    const message = document.querySelectorAll('.message')[0]
-    message.innerText = ''
+    setMessage('')
+}
+
+function checkForBust(score) {
+    if (score > 21) {
+        stand()
+        setMessage('You busted! The dealer wins!')
+    }
 }
 
 function shuffleCards(deck) {
@@ -169,7 +172,9 @@ function hit() {
     userCardImage(user.cards[index].image)
     displayScore(getScore(user), document.querySelectorAll('.score')[1])
 
+    //if either return true, then disable all buttons except for deal
     checkForBust(user.score)
+    checkForBlackjack(user.score, dealer.score)
 }
 
 function dealerDraws() {
@@ -183,31 +188,61 @@ function dealerDraws() {
     }
 }
 
+function checkForBlackjack(userScore, dealerScore) {
+    if (userScore === 21) {
+        if (userScore !== dealerScore) {
+            user.wins++
+            setMessage('Blackjack! You are the winner!')
+            return true
+        } else {
+            user.pushes++
+            setMessage("You and the dealer had Blackjack... It's a push")
+            return true
+        }
+    } else if (dealerScore === 21 && userScore < dealerScore) {
+        dealer.wins++
+        setMessage('The dealer wins with Blackjack!')
+        return true
+    }
+    return false
+}
 function compareScores() {
-    let userWins = user.wins
-    let dealerWins = dealer.wins
-    let pushes = user.pushes
-
     if (dealer.score <= 21) {
         if (user.score <= 21 && user.score > dealer.score) {
-            userWins++
-            console.log('user wins')
+            if (checkForBlackjack(user.score, dealer.score)) {
+                checkForBlackjack(user.score, dealer.score)
+            } else {
+                user.wins++
+                console.log('user wins', user.wins)
+                setMessage('You win, congrats!')
+            }
         } else if (dealer.score === user.score) {
-            pushes++
-            console.log("it's a push")
+            if (checkForBlackjack(user.score, dealer.score)) {
+                checkForBlackjack(user.score, dealer.score)
+            } else {
+                user.pushes++
+                setMessage("It's a push!", user.pushes)
+            }
         } else {
-            dealerWins++
-            console.log('dealer wins')
+            if (checkForBlackjack(user.score, dealer.score)) {
+                checkForBlackjack(user.score, dealer.score)
+            } else {
+                dealer.wins++
+                console.log('dealer wins', dealer.wins)
+                setMessage('The dealer wins!')
+            }
         }
     } else {
         if (user.score <= 21) {
-            userWins++
-            console.log('user wins')
+            if (checkForBlackjack(user.score, dealer.score)) {
+                checkForBlackjack(user.score, dealer.score)
+            } else {
+                user.wins++
+                console.log('user wins', user.wins)
+                setMessage('The dealer busted! You win!')
+            }
         }
     }
-    user.wins = userWins
-    dealer.wins = dealerWins
-    user.pushes = pushes
 }
 
 function stand() {
