@@ -101,12 +101,16 @@ function displayScore(score, element) {
 }
 
 function checkForBust(score) {
+    const message = document.querySelectorAll('.message')[0]
     if (score > 21) {
-        // message saying you busted and finish game
         stand()
-        const message = document.querySelectorAll('.message')[0]
         message.innerText = 'You busted! The dealer wins!'
     }
+}
+
+function resetMessage() {
+    const message = document.querySelectorAll('.message')[0]
+    message.innerText = ''
 }
 
 function shuffleCards(deck) {
@@ -153,6 +157,8 @@ function dealCards() {
 
     getScore(dealer)
     getScore(user)
+
+    resetMessage()
 }
 
 function hit() {
