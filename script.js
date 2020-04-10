@@ -58,6 +58,14 @@ function newGame() {
     removeImages()
     createDeck()
     shuffleCards(deck)
+    resetMessage()
+}
+
+function dealCards() {
+    drawCard(user)
+    drawCard(dealer)
+    drawCard(user)
+    drawCard(dealer)
 }
 
 //------------------------------------
@@ -90,9 +98,17 @@ function removeImages() {
 }
 
 // 'flips' the hole card by replacing the image 
-function setHoleCardImage(image) {
+function flipHoleCard(image) {
     const cardElement = document.querySelectorAll('.cards img')[0]
     cardElement.setAttribute('src', image)
+}
+
+function setInitalImages() {
+    dealer.cards[0].backsideImage = 'images/card-backside.png'
+    userCardImage(user.cards[0].image)
+    userCardImage(user.cards[1].image)
+    dealerCardImage(dealer.cards[0].backsideImage)
+    dealerCardImage(dealer.cards[1].image)
 }
 
 //-------------------------------------
@@ -233,42 +249,30 @@ function compareScores() {
 //-------------------------------------
 //----------Button functinos-----------
 //-------------------------------------
-function dealCards() {
+function deal() {
     newGame()
-
-    drawCard(user)
-    drawCard(dealer)
-    dealer.cards[0].backsideImage = 'images/card-backside.png'
-
-    drawCard(user)
-    drawCard(dealer)
-
-    userCardImage(user.cards[0].image)
-    userCardImage(user.cards[1].image)
-    dealerCardImage(dealer.cards[0].backsideImage)
-    dealerCardImage(dealer.cards[1].image)
-
-    displayScore(getScore(user), document.querySelectorAll('.score')[1])
-    displayScore(setInitialDealerScore(), document.querySelectorAll('.score')[0])
+    dealCards()
+    setInitalImages()
 
     setScore(dealer)
     setScore(user)
 
-    resetMessage()
+    displayScore(getScore(user), document.querySelectorAll('.score')[1])
+    displayScore(setInitialDealerScore(), document.querySelectorAll('.score')[0])
+
     dealBtn.disabled = true
     hitBtn.disabled = false
     standBtn.disabled = false
 }
 
 function hit() {
-    user.cards.push(drawCard())
+    drawCard(user)
     setScore(user)
 
     let index = user.cards.length - 1
     userCardImage(user.cards[index].image)
     displayScore(getScore(user), document.querySelectorAll('.score')[1])
 
-    //if either return true, then disable all buttons except for deal
     checkForBlackjack(user.score, dealer.score)
     checkForBust(user.score)
 }
@@ -276,7 +280,7 @@ function hit() {
 function dealerDraws() {
     for (let i = 0; i < 5; i++) {
         if (user.score <= 21 && user.score > dealer.score && dealer.score < 19) {
-            dealer.cards.push(drawCard())
+            drawCard(dealer)
             let index = dealer.cards.length - 1
             dealerCardImage(dealer.cards[index].image)
         }
@@ -285,7 +289,7 @@ function dealerDraws() {
 }
 
 function stand() {
-    setHoleCardImage(dealer.cards[0].image)
+    flipHoleCard(dealer.cards[0].image)
     dealerDraws()
     compareScores()
     dealBtn.disabled = false
@@ -296,6 +300,6 @@ function stand() {
 //-------------------------------------
 //-------BUTTON EVENT HANDLING---------
 //-------------------------------------
-dealBtn.addEventListener('click', dealCards)
+dealBtn.addEventListener('click', deal)
 hitBtn.addEventListener('click', hit)
 standBtn.addEventListener('click', stand)
