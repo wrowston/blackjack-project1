@@ -2,12 +2,15 @@ const cardValue = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen'
 const cardSuit = ['hearts', 'spades', 'clubs', 'diamonds']
 let deck = []
 let user = {
+    name: 'User',
     cards: [],
     score: 0,
     wins: 0,
-    pushes: 0
+    pushes: 0,
+    push: 'Pushes'
 }
 let dealer = {
+    name: 'Dealer',
     cards: [],
     score: 0,
     wins: 0
@@ -151,8 +154,6 @@ function setInitialDealerScore() {
     } else {
         score += Number(dealer.cards[1].value)
     }
-
-    // dealer.score = score
     return score
 }
 
@@ -194,6 +195,7 @@ function checkForBust(score) {
     if (score > 21) {
         stand()
         setMessage('You busted! The dealer wins!')
+        displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
         hitBtn.disabled = true
         standBtn.disabled = true
         return true
@@ -206,16 +208,19 @@ function checkForBlackjack(userScore, dealerScore) {
         if (userScore !== dealerScore) {
             user.wins++
             setMessage('Blackjack! You are the winner!')
+            displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
             return true
         } else {
             user.pushes++
             setMessage("You and the dealer had Blackjack... It's a push")
+            displayWins(user.push, user.pushes, document.querySelectorAll('.player-wins')[2])
             return true
         }
     } else if (dealerScore === 21 && userScore < dealerScore) {
         dealer.wins++
         setMessage('The dealer wins with Blackjack!')
         stand()
+        displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
         return true
     }
     return false
@@ -228,8 +233,8 @@ function compareScores() {
                 checkForBlackjack(user.score, dealer.score)
             } else {
                 user.wins++
-                console.log('user wins', user.wins)
                 setMessage('You win, congrats!')
+                displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
             }
         } else if (dealer.score === user.score) {
             if (checkForBlackjack(user.score, dealer.score)) {
@@ -237,14 +242,15 @@ function compareScores() {
             } else {
                 user.pushes++
                 setMessage("It's a push!", user.pushes)
+                displayWins(user.push, user.pushes, document.querySelectorAll('.player-wins')[2])
             }
         } else {
             if (checkForBlackjack(user.score, dealer.score)) {
                 checkForBlackjack(user.score, dealer.score)
             } else {
                 dealer.wins++
-                console.log('dealer wins', dealer.wins)
                 setMessage('The dealer wins!')
+                displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
             }
         }
     } else {
@@ -253,11 +259,15 @@ function compareScores() {
                 checkForBlackjack(user.score, dealer.score)
             } else {
                 user.wins++
-                console.log('user wins', user.wins)
                 setMessage('The dealer busted! You win!')
+                displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
             }
         }
     }
+}
+
+function displayWins(player, wins, element) {
+    element.innerText = player + ': ' + wins
 }
 
 //-------------------------------------
