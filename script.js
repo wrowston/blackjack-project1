@@ -174,6 +174,20 @@ function resetMessage() {
 }
 
 //-------------------------------------
+//-----------DEALER MOVES--------------
+//-------------------------------------
+function dealerDraws() {
+    for (let i = 0; i < 5; i++) {
+        if (user.score <= 21 && user.score > dealer.score && dealer.score < 19) {
+            drawCard(dealer)
+            let index = dealer.cards.length - 1
+            dealerCardImage(dealer.cards[index].image)
+        }
+        displayScore(getScore(dealer), document.querySelectorAll('.score')[0])
+    }
+}
+
+//-------------------------------------
 //-------SCORING AND RESULTS-----------
 //-------------------------------------
 function checkForBust(score) {
@@ -275,17 +289,6 @@ function hit() {
 
     checkForBlackjack(user.score, dealer.score)
     checkForBust(user.score)
-}
-
-function dealerDraws() {
-    for (let i = 0; i < 5; i++) {
-        if (user.score <= 21 && user.score > dealer.score && dealer.score < 19) {
-            drawCard(dealer)
-            let index = dealer.cards.length - 1
-            dealerCardImage(dealer.cards[index].image)
-        }
-        displayScore(getScore(dealer), document.querySelectorAll('.score')[0])
-    }
 }
 
 function stand() {
