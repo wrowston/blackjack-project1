@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blackjack</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
+
 <body>
-    <h1>Blackjack</h1>
-    <div class='message'></div>
-    <div class='dealer'>
-        <div class='player'>Dealer</div>
-        <div class='cards'></div>
-    </div>
-    <div class='user'>
-        <div class='player'>User</div>
-        <div class='cards'></div>
+    <div class="game">
+        <h1>Blackjack</h1>
+        <div class='message'></div>
+        <div class='dealer'>
+            <div class='player'>Dealer</div>
+            <div class='score'></div>
+            <div class='cards'></div>
+        </div>
+        <div class='user'>
+            <div class='player'>User</div>
+            <div class='score'></div>
+            <div class='cards'></div>
+        </div>
     </div>
     <div class='buttons'>
-        <button class='deal'>Deal</button>
-        <button class='hit'>Hit</button>
-        <button class='stand'>Stand</button>
+        <button type="button" class="btn btn-outline-dark deal" class='deal'>Deal</button>
+        <button type="button" class="btn btn-outline-dark hit" class='hit'>Hit</button>
+        <button type="button" class="btn btn-outline-dark stand" class='stand'>Stand</button>
     </div>
     <script src='script.js'></script>
 </body>
+
 </html>
