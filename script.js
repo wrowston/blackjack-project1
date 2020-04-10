@@ -42,10 +42,22 @@ function shuffleCards(deck) {
     return deck
 }
 
-function drawCard() {
+function drawCard(player) {
     const cardDrawn = deck[0]
     deck.shift()
+    player.cards.push(cardDrawn)
     return cardDrawn
+}
+
+function newGame() {
+    user.cards.length = 0
+    user.score = 0
+    dealer.cards.length = 0
+    dealer.score = 0
+    deck.length = 0
+    removeImages()
+    createDeck()
+    shuffleCards(deck)
 }
 
 //------------------------------------
@@ -110,7 +122,7 @@ function getScore(player) {
 }
 
 // use to display dealer score when only one card is shown
-function getInitialDealerScore() {
+function setInitialDealerScore() {
     let score = 0
     if (score > 10 && dealer.cards[1].value === 'ace') {
         score += 1
@@ -222,21 +234,14 @@ function compareScores() {
 //----------Button functinos-----------
 //-------------------------------------
 function dealCards() {
-    user.cards.length = 0
-    user.score = 0
-    dealer.cards.length = 0
-    dealer.score = 0
-    deck.length = 0
-    removeImages()
-    createDeck()
-    shuffleCards(deck)
+    newGame()
 
-    user.cards.push(drawCard())
-    dealer.cards.push(drawCard())
+    drawCard(user)
+    drawCard(dealer)
     dealer.cards[0].backsideImage = 'images/card-backside.png'
 
-    user.cards.push(drawCard())
-    dealer.cards.push(drawCard())
+    drawCard(user)
+    drawCard(dealer)
 
     userCardImage(user.cards[0].image)
     userCardImage(user.cards[1].image)
@@ -244,7 +249,7 @@ function dealCards() {
     dealerCardImage(dealer.cards[1].image)
 
     displayScore(getScore(user), document.querySelectorAll('.score')[1])
-    displayScore(getInitialDealerScore(), document.querySelectorAll('.score')[0])
+    displayScore(setInitialDealerScore(), document.querySelectorAll('.score')[0])
 
     setScore(dealer)
     setScore(user)
