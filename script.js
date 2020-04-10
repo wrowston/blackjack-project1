@@ -103,6 +103,9 @@ function displayScore(score, element) {
 function checkForBust(score) {
     if (score > 21) {
         // message saying you busted and finish game
+        stand()
+        const message = document.querySelectorAll('.message')[0]
+        message.innerText = 'You busted! The dealer wins!'
     }
 }
 
@@ -159,6 +162,8 @@ function hit() {
     let index = user.cards.length - 1
     userCardImage(user.cards[index].image)
     displayScore(getScore(user), document.querySelectorAll('.score')[1])
+
+    checkForBust(user.score)
 }
 
 function dealerDraws() {
