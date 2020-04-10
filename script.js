@@ -62,6 +62,7 @@ function newGame() {
     createDeck()
     shuffleCards(deck)
     resetMessage()
+    document.querySelectorAll('.blackjack-message')[0].innerText = ''
 }
 
 function dealCards() {
@@ -134,6 +135,7 @@ function setScore(player) {
         }
     }
     player.score = score
+    return player.score
 }
 
 function getScore(player) {
@@ -183,6 +185,7 @@ function dealerDraws() {
             drawCard(dealer)
             let index = dealer.cards.length - 1
             dealerCardImage(dealer.cards[index].image)
+            setScore(dealer)
         }
         displayScore(getScore(dealer), document.querySelectorAll('.score')[0])
     }
@@ -203,65 +206,34 @@ function checkForBust(score) {
     return false
 }
 
-function checkForBlackjack(userScore, dealerScore) {
-    if (userScore === 21) {
-        if (userScore !== dealerScore) {
-            user.wins++
-            setMessage('Blackjack! You are the winner!')
-            displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
-            return true
-        } else {
-            user.pushes++
-            setMessage("You and the dealer had Blackjack... It's a push")
-            displayWins(user.push, user.pushes, document.querySelectorAll('.player-wins')[2])
-            return true
-        }
-    } else if (dealerScore === 21 && userScore < dealerScore) {
-        dealer.wins++
-        setMessage('The dealer wins with Blackjack!')
-        stand()
-        displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
-        return true
+function checkForBlackjack(player) {
+    if (player.score === 21) {
+        document.querySelectorAll('.blackjack-message')[0].innerText = 'Blackjack!'
     }
-    return false
 }
 
 function compareScores() {
+    checkForBlackjack(user)
+    checkForBlackjack(dealer)
     if (dealer.score <= 21) {
         if (user.score <= 21 && user.score > dealer.score) {
-            if (checkForBlackjack(user.score, dealer.score)) {
-                checkForBlackjack(user.score, dealer.score)
-            } else {
-                user.wins++
-                setMessage('You win, congrats!')
-                displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
-            }
+            user.wins++
+            setMessage('You win, congrats!')
+            displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
         } else if (dealer.score === user.score) {
-            if (checkForBlackjack(user.score, dealer.score)) {
-                checkForBlackjack(user.score, dealer.score)
-            } else {
-                user.pushes++
-                setMessage("It's a push!", user.pushes)
-                displayWins(user.push, user.pushes, document.querySelectorAll('.player-wins')[2])
-            }
+            user.pushes++
+            setMessage("It's a push!", user.pushes)
+            displayWins(user.push, user.pushes, document.querySelectorAll('.player-wins')[2])
         } else {
-            if (checkForBlackjack(user.score, dealer.score)) {
-                checkForBlackjack(user.score, dealer.score)
-            } else {
-                dealer.wins++
-                setMessage('The dealer wins!')
-                displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
-            }
+            dealer.wins++
+            setMessage('The dealer wins!')
+            displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
         }
     } else {
         if (user.score <= 21) {
-            if (checkForBlackjack(user.score, dealer.score)) {
-                checkForBlackjack(user.score, dealer.score)
-            } else {
-                user.wins++
-                setMessage('The dealer busted! You win!')
-                displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
-            }
+            user.wins++
+            setMessage('The dealer busted! You win!')
+            displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
         }
     }
 }
