@@ -18,6 +18,8 @@ let dealer = {
 const dealBtn = document.querySelectorAll('.deal')[0]
 const hitBtn = document.querySelectorAll('.hit')[0]
 const standBtn = document.querySelectorAll('.stand')[0]
+hitBtn.disabled = true
+standBtn.disabled = true
 
 //-------------------------------------
 //------------CARD HANDLING------------
