@@ -28,7 +28,7 @@ img {
     background-color: #0f570b;
     color: #ededed;
     margin: 0 30px 30px 30px;
-    border-radius: 25px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
