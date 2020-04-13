@@ -80,6 +80,7 @@ function dealerCardImage(image) {
     const parent = document.querySelectorAll('.cards')[0]
     let cardImageElement = document.createElement('img')
     cardImageElement.setAttribute('src', image)
+    parent.style.padding = 0
     parent.appendChild(cardImageElement)
 }
 
@@ -88,6 +89,7 @@ function userCardImage(image) {
     const parent = document.querySelectorAll('.cards')[1]
     let cardImageElement = document.createElement('img')
     cardImageElement.setAttribute('src', image)
+    parent.style.padding = 0
     parent.appendChild(cardImageElement)
 }
 

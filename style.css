@@ -1,17 +1,20 @@
 h1 {
     text-align: center;
 }
+.card-wrapper {
+    border: 2px solid yellow;
+    border-radius: 25px;
+    margin: 20px;
+}
 
-.cards img {
+.cards {
+    padding: 100px;
+}
+
+img {
     height: 160px;
     width: 90px;
     margin: 10px;
-}
-
-.game-wrapper {
-    background-color: #0f570b;
-    color: #ededed;
-    margin: 30px;
 }
 
 .menu {
@@ -35,14 +38,11 @@ h1 {
 
 .player-wrapper {
     width: 50%;
-
-}
-.dealer {
-    text-align: center
-}
-
-.user {
-    text-align: center
+    background-color: #0f570b;
+    color: #ededed;
+    margin: 0 30px 30px 30px;
+    border-radius: 25px;
+    text-align: center;
 }
 
 .player {
@@ -54,7 +54,7 @@ h1 {
  }
 
  .wins {
-     border-bottom: 2px solid #ededed;
+     border-bottom: 2px solid;
      text-align: center;
      font-size: 24px;
  }
