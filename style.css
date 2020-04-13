@@ -64,11 +64,12 @@ img {
     text-align: center;
     font-size: 24px;
     font-weight: 300;
+    letter-spacing: 2px;
 }
 
 .win-table {
     border: 1px solid;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 0 0 16px 0;
 }
 
@@ -78,6 +79,16 @@ img {
     letter-spacing: 1px;
 }
 
+/* .blackjack-message {
+    margin: 0 0 16px 0;
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 1px;
+} */
 .buttons {
     width: 50%;
+}
+
+.alert {
+    text-align: center;
 }

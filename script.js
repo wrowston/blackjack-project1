@@ -64,7 +64,6 @@ function newGame() {
     createDeck()
     shuffleCards(deck)
     resetMessage()
-    document.querySelectorAll('.blackjack-message')[0].innerText = ''
 }
 
 function dealCards() {
@@ -222,7 +221,7 @@ function checkForBust(score) {
 
 function checkForBlackjack(player) {
     if (player.score === 21) {
-        document.querySelectorAll('.blackjack-message')[0].innerText = 'Blackjack!'
+        setMessage("Blackjack!", "alert alert-primary")
     }
 }
 
