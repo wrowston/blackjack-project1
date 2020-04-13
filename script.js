@@ -6,6 +6,7 @@ let user = {
     cards: [],
     score: 0,
     wins: 0,
+    cash: 2500,
     pushes: 0,
     push: 'Push'
 }
@@ -64,6 +65,7 @@ function newGame() {
     createDeck()
     shuffleCards(deck)
     resetMessage()
+    displayCash()
 }
 
 function dealCards() {
@@ -254,6 +256,16 @@ function compareScores() {
         }
     }
 }
+
+
+//-------------------------------------
+//----------Gambling functinos---------
+//-------------------------------------
+function displayCash() {
+    const cash = document.querySelectorAll('.cash')[0]
+    cash.innerText = '$' + user.cash
+}
+displayCash()
 
 //-------------------------------------
 //----------Button functinos-----------
