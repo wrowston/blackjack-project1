@@ -1,5 +1,9 @@
-h1 {
+.header {
     text-align: center;
+    font-size: 45px;
+    margin: 10px 20px 20px 20px;
+    font-weight: 300;
+    border-bottom: 1px solid;
 }
 .card-wrapper {
     border: 2px solid yellow;
