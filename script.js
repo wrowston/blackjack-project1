@@ -169,13 +169,21 @@ function displayScore(score, element) {
 //-------------------------------------
 //----------WINNER'S MESSAGE-----------
 //-------------------------------------
-function setMessage(message) {
-    const messageElement = document.querySelectorAll('.message')[0]
+function setMessage(message, alertClass) {
+    const parent = document.querySelectorAll('.message')[0]
+    let messageElement = document.createElement('div')
+    messageElement.setAttribute('class', alertClass)
     messageElement.innerText = message
+    parent.appendChild(messageElement)
 }
 
 function resetMessage() {
-    setMessage('')
+    setMessage('', 'message')
+    const parent = document.querySelectorAll('.message')[0]
+    let alertElement = parent.querySelectorAll('div')
+    for (let i = 0; i < alertElement.length; i++) {
+        parent.removeChild(alertElement[i])
+    }
 }
 
 //-------------------------------------
@@ -198,9 +206,11 @@ function dealerDraws() {
 //-------------------------------------
 function checkForBust(score) {
     if (score > 21) {
-        stand()
-        setMessage('You busted! The dealer wins!')
+        flipHoleCard(dealer.cards[0].image)
+        dealerDraws()
+        setMessage('You busted! The dealer wins!', 'alert alert-danger')
         displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
+        dealBtn.disabled = false
         hitBtn.disabled = true
         standBtn.disabled = true
         return true
@@ -224,21 +234,21 @@ function compareScores() {
     if (dealer.score <= 21) {
         if (user.score <= 21 && user.score > dealer.score) {
             user.wins++
-            setMessage('You win, congrats!')
+            setMessage('You win, congrats!', 'alert alert-success')
             displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
         } else if (dealer.score === user.score) {
             user.pushes++
-            setMessage("It's a push!", user.pushes)
+            setMessage("It's a push!", 'alert alert-warning')
             displayWins(user.push, user.pushes, document.querySelectorAll('.player-wins')[2])
         } else {
             dealer.wins++
-            setMessage('The dealer wins!')
+            setMessage('The dealer wins!', 'alert alert-danger')
             displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
         }
     } else {
         if (user.score <= 21) {
             user.wins++
-            setMessage('The dealer busted! You win!')
+            setMessage('The dealer busted! You win!', 'alert alert-success')
             displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
         }
     }
