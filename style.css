@@ -1,8 +1,64 @@
+h1 {
+    text-align: center;
+}
+
 .cards img {
     height: 160px;
     width: 90px;
+    margin: 10px;
 }
 
-/* .game {
-    background-color: #0e6e09;
-} */
+.game-wrapper {
+    background-color: #0f570b;
+    color: #ededed;
+    margin: 30px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.game {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+}
+
+.player-wrapper {
+    width: 50%;
+
+}
+.dealer {
+    text-align: center
+}
+
+.user {
+    text-align: center
+}
+
+.player {
+    font-size: 35px;
+}
+ .score {
+     font-size: 24px;
+     font-weight: 300;
+ }
+
+ .wins {
+     border-bottom: 2px solid #ededed;
+     text-align: center;
+     font-size: 24px;
+ }
+
+ .win-table {
+     margin-right: 20px;
+ }

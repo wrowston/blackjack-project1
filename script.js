@@ -15,9 +15,9 @@ let dealer = {
     score: 0,
     wins: 0
 }
-const dealBtn = document.querySelectorAll('.btn.btn-outline-dark.deal')[0]
-const hitBtn = document.querySelectorAll('.btn.btn-outline-dark.hit')[0]
-const standBtn = document.querySelectorAll('.btn.btn-outline-dark.stand')[0]
+const dealBtn = document.querySelectorAll('.btn.btn-secondary.btn-lg.deal')[0]
+const hitBtn = document.querySelectorAll('.btn.btn-secondary.btn-lg.hit')[0]
+const standBtn = document.querySelectorAll('.btn.btn-secondary.btn-lg.stand')[0]
 
 //-------------------------------------
 //------------CARD HANDLING------------
