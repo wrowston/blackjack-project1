@@ -4,21 +4,43 @@
     margin: 10px 20px 20px 20px;
     font-weight: 300;
     border-bottom: 1px solid;
+    letter-spacing: 4px;
 }
+
 .card-wrapper {
-    border: 2px solid yellow;
+    border: 2px solid #e3d61e;
     border-radius: 25px;
     margin: 20px;
 }
 
 .cards {
-    padding: 100px;
+    padding: 80px;
 }
 
 img {
-    height: 160px;
+    height: 140px;
     width: 90px;
     margin: 10px;
+}
+
+.player-wrapper {
+    width: 50%;
+    background-color: #0f570b;
+    color: #ededed;
+    margin: 0 30px 30px 30px;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.player {
+    font-size: 35px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+.score {
+    font-size: 20px;
+    font-weight: 200;
+    letter-spacing: 1px;
 }
 
 .menu {
@@ -40,29 +62,12 @@ img {
     margin: 30px;
 }
 
-.player-wrapper {
-    width: 50%;
-    background-color: #0f570b;
-    color: #ededed;
-    margin: 0 30px 30px 30px;
-    border-radius: 25px;
+.wins {
+    border-bottom: 2px solid;
     text-align: center;
+    font-size: 24px;
 }
 
-.player {
-    font-size: 35px;
+.win-table {
+    margin-right: 20px;
 }
- .score {
-     font-size: 24px;
-     font-weight: 300;
- }
-
- .wins {
-     border-bottom: 2px solid;
-     text-align: center;
-     font-size: 24px;
- }
-
- .win-table {
-     margin-right: 20px;
- }
