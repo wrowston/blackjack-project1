@@ -9,7 +9,7 @@
 
 .card-wrapper {
     border: 2px solid #e3d61e;
-    border-radius: 25px;
+    border-radius: 10px;
     margin: 20px;
 }
 
@@ -68,8 +68,8 @@ img {
 
 .win-table {
     border: 1px solid;
-    border-radius: 25px;
-    margin: 0 0 30px 0;
+    border-radius: 10px;
+    margin: 0 0 16px 0;
 }
 
 .player-wins {
