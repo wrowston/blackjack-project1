@@ -7,7 +7,7 @@ let user = {
     score: 0,
     wins: 0,
     pushes: 0,
-    push: 'Pushes'
+    push: 'Push'
 }
 let dealer = {
     name: 'Dealer',
@@ -214,6 +214,10 @@ function checkForBlackjack(player) {
     }
 }
 
+function displayWins(player, wins, element) {
+    element.innerText = player + ': ' + wins
+}
+
 function compareScores() {
     checkForBlackjack(user)
     checkForBlackjack(dealer)
@@ -238,10 +242,6 @@ function compareScores() {
             displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
         }
     }
-}
-
-function displayWins(player, wins, element) {
-    element.innerText = player + ': ' + wins
 }
 
 //-------------------------------------

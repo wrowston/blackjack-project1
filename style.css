@@ -63,11 +63,20 @@ img {
 }
 
 .wins {
-    border-bottom: 2px solid;
+    border-bottom: 1px solid;
     text-align: center;
     font-size: 24px;
+    font-weight: 300;
 }
 
 .win-table {
     margin-right: 20px;
+    border: 1px solid;
+    border-radius: 25px;
+}
+
+.player-wins {
+    margin: 10px;
+    font-weight: 200;
+    letter-spacing: 1px;
 }
