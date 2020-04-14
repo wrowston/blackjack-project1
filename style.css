@@ -6,7 +6,72 @@
     border-bottom: 1px solid;
     letter-spacing: 4px;
 }
+.game {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
 
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+/* aligning wins table div and gambling div */
+.scoreboard {
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.gambling {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.money {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0 0 16px 0;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.wins {
+    border-bottom: 1px solid;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.win-table {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 0 16px 16px 0;
+}
+
+.player-wins {
+    margin: 10px;
+    font-weight: 200;
+    letter-spacing: 1px;
+}
+
+.buttons {
+    width: 70%;
+}
+
+.alert {
+    text-align: center;
+}
+
+/* styling card images and score */
 .card-wrapper {
     border: 2px solid #e3d61e;
     border-radius: 10px;
@@ -14,7 +79,7 @@
 }
 
 .cards {
-    padding: 80px;
+    padding: 80px 100px;
 }
 
 img {
@@ -46,47 +111,8 @@ img {
     letter-spacing: 1px;
 }
 
-.menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-}
 
-.game {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.wins {
-    border-bottom: 1px solid;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 300;
-    letter-spacing: 2px;
-}
-
-.win-table {
-    border: 1px solid;
-    border-radius: 5px;
-    margin: 0 0 16px 0;
-}
-
-.player-wins {
-    margin: 10px;
-    font-weight: 200;
-    letter-spacing: 1px;
-}
-
-.buttons {
-    width: 50%;
-}
-
-.alert {
-    text-align: center;
-}
-
+/* aligning divs vertically when screen get smaller than 500px */
 @media (max-width: 800px) {
     .game {
         display: flex;
