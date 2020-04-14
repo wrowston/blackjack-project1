@@ -1,3 +1,8 @@
+// Blackjack Web Application
+//--------------------------
+// Created by Will Rowston
+// Date 04/14/2020
+
 const cardValue = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace']
 const cardSuit = ['hearts', 'spades', 'clubs', 'diamonds']
 let deck = []
@@ -17,6 +22,10 @@ let dealer = {
     score: 0,
     wins: 0
 }
+
+//-------------------------------------
+//--------------BUTTONS----------------
+//-------------------------------------
 const dealBtn = document.querySelectorAll('.deal')[0]
 const hitBtn = document.querySelectorAll('.hit')[0]
 const standBtn = document.querySelectorAll('.stand')[0]
@@ -147,11 +156,7 @@ function setScore(player) {
         }
     }
     player.score = score
-    return player.score
-}
-
-function getScore(player) {
-    return player.score
+    // return player.score
 }
 
 // use to display dealer score when only one card is shown
@@ -207,7 +212,7 @@ function dealerDraws() {
             dealerCardImage(dealer.cards[index].image)
             setScore(dealer)
         }
-        displayScore(getScore(dealer), document.querySelectorAll('.score')[0])
+        displayScore(dealer.score, document.querySelectorAll('.score')[0])
     }
 }
 
@@ -259,21 +264,8 @@ function pushBet() {
 //-------------------------------------
 //-------SCORING AND RESULTS-----------
 //-------------------------------------
-function checkForBust(score) {
-    if (score > 21) {
-        flipHoleCard(dealer.cards[0].image)
-        dealerDraws()
-        setMessage('You busted! The dealer wins!', 'alert alert-danger')
-        displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
-        loseBet()
-        dealBtn.disabled = false
-        hitBtn.disabled = true
-        standBtn.disabled = true
-        enableGambling()
-    }
-}
-
 function checkForBlackjack(player) {
+    // Blackjack = an Ace and a card witha value of 10
     if (player.score === 21) {
         if (player.cards[0].value === 'ace') {
             if (player.cards[1].value === '10' ||
@@ -322,8 +314,8 @@ function compareScores() {
             displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
             winBet()
         }
-        // dealer has higher score than user and did not bust
-        else {
+        // Dealer has higher score than user and did not bust
+        else if (dealer.score <= 21 && dealer.score > user.score) {
             dealer.wins++
             setMessage('The dealer wins!', 'alert alert-danger')
             displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
@@ -340,15 +332,22 @@ function compareScores() {
             pushBet()
         }
         // Dealer and user both have 21 but user has blackjack
-        else if (dealer.score === user.score && checkForBlackjack(user)) {
+        else if (checkForBlackjack(user)) {
             user.wins++
             setMessage("You win with Blackjack!", "alert alert-success")
             displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
             winBet()
         }
+        // Dealer and user both have 21 but dealer has blackjack
+        else if (checkForBlackjack(dealer)) {
+            dealer.wins++
+            setMessage("The dealer wins with Blackjack!", "alert alert-danger")
+            displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
+            loseBet()
+        }
     }
-    //the dealer busted and the user has a score less than 22
-    if (dealer.score > 21 && user.score <= 21) {
+    // Dealer busted and the user has a score less than 22
+    if (dealer.score > 21 && user.score <= 21 && !checkForBlackjack(user)) {
         user.wins++
         setMessage('The dealer busted! You win!', 'alert alert-success')
         displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
@@ -358,7 +357,7 @@ function compareScores() {
 }
 
 //-------------------------------------
-//----------Button functinos-----------
+//----------BUTTON FUNCTIONS-----------
 //-------------------------------------
 function deal() {
     newGame()
@@ -368,7 +367,7 @@ function deal() {
     setScore(dealer)
     setScore(user)
 
-    displayScore(getScore(user), document.querySelectorAll('.score')[1])
+    displayScore(user.score, document.querySelectorAll('.score')[1])
     displayScore(setInitialDealerScore(), document.querySelectorAll('.score')[0])
 
     dealBtn.disabled = true
@@ -383,9 +382,20 @@ function hit() {
 
     let index = user.cards.length - 1
     userCardImage(user.cards[index].image)
-    displayScore(getScore(user), document.querySelectorAll('.score')[1])
+    displayScore(user.score, document.querySelectorAll('.score')[1])
 
-    checkForBust(user.score)
+    if (user.score > 21) {
+        dealer.wins++
+        setMessage('You busted! The dealer wins!', 'alert alert-danger')
+        displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
+        loseBet()
+        flipHoleCard(dealer.cards[0].image)
+        dealerDraws()
+        dealBtn.disabled = false
+        hitBtn.disabled = true
+        standBtn.disabled = true
+        enableGambling()
+    }
 }
 
 function stand() {
