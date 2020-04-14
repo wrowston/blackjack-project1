@@ -216,7 +216,7 @@ function dealerDraws() {
 //-------------------------------------
 function displayCash() {
     const cash = document.querySelectorAll('.cash')[0]
-    cash.innerText = '$' + user.cash
+    cash.innerText = 'Available Cash: $' + user.cash
 }
 displayCash()
 
@@ -232,6 +232,7 @@ function resetBet() {
     user.currentBet = 0
     currentBet.innerText = 'Current Bet: $' + user.currentBet
 }
+resetBet()
 
 function loseBet() {
     resetBet()
@@ -256,7 +257,6 @@ function pushBet() {
 function checkForBust(score) {
     if (score > 21) {
         flipHoleCard(dealer.cards[0].image)
-        dealerDraws()
         setMessage('You busted! The dealer wins!', 'alert alert-danger')
         displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
         loseBet()
@@ -264,14 +264,27 @@ function checkForBust(score) {
         hitBtn.disabled = true
         standBtn.disabled = true
         enableGambling()
-        return true
     }
-    return false
 }
 
 function checkForBlackjack(player) {
     if (player.score === 21) {
-        setMessage("Blackjack!", "alert alert-primary")
+        if (player.cards[0].value === 'ace') {
+            if (player.cards[1].value === '10' ||
+                player.cards[1].value === 'jack' ||
+                player.cards[1].value === 'queen' ||
+                player.cards[1].value === 'king') {
+                setMessage("Blackjack!", "alert alert-primary")
+            }
+        } else if (player.cards[0].value === '10' ||
+            player.cards[0].value === 'jack' ||
+            player.cards[0].value === 'queen' ||
+            player.cards[0].value === 'king') {
+            if (player.cards[1].value === 'ace') {
+                setMessage("Blackjack!", "alert alert-primary")
+            }
+        }
+
     }
 }
 
@@ -338,7 +351,6 @@ function hit() {
     userCardImage(user.cards[index].image)
     displayScore(getScore(user), document.querySelectorAll('.score')[1])
 
-    checkForBlackjack(user.score, dealer.score)
     checkForBust(user.score)
 }
 
