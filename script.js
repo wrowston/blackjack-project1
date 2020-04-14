@@ -240,6 +240,9 @@ function loseBet() {
 }
 
 function winBet() {
+    if (checkForBlackjack(user)) {
+        user.cash += ((user.currentBet * 2) + (user.currentBet / 2))
+    }
     user.cash += (user.currentBet * 2)
     resetBet()
     displayCash()
@@ -257,6 +260,7 @@ function pushBet() {
 function checkForBust(score) {
     if (score > 21) {
         flipHoleCard(dealer.cards[0].image)
+        dealerDraws()
         setMessage('You busted! The dealer wins!', 'alert alert-danger')
         displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
         loseBet()
@@ -274,18 +278,18 @@ function checkForBlackjack(player) {
                 player.cards[1].value === 'jack' ||
                 player.cards[1].value === 'queen' ||
                 player.cards[1].value === 'king') {
-                setMessage("Blackjack!", "alert alert-primary")
+                return true
             }
         } else if (player.cards[0].value === '10' ||
             player.cards[0].value === 'jack' ||
             player.cards[0].value === 'queen' ||
             player.cards[0].value === 'king') {
             if (player.cards[1].value === 'ace') {
-                setMessage("Blackjack!", "alert alert-primary")
+                return true
             }
         }
-
     }
+    return false
 }
 
 function displayWins(player, wins, element) {
@@ -293,27 +297,59 @@ function displayWins(player, wins, element) {
 }
 
 function compareScores() {
-    //calling both prints two blackjack messages if both get blackjack
-    checkForBlackjack(user)
-    checkForBlackjack(dealer)
     if (dealer.score <= 21) {
-        if (user.score <= 21 && user.score > dealer.score) {
-            user.wins++
-            setMessage('You win, congrats!', 'alert alert-success')
-            displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
-            winBet()
-        } else if (dealer.score === user.score) {
-            user.pushes++
-            setMessage("It's a push!", 'alert alert-warning')
-            displayWins(user.push, user.pushes, document.querySelectorAll('.player-wins')[2])
-            pushBet()
-        } else {
-            dealer.wins++
-            setMessage('The dealer wins!', 'alert alert-danger')
-            displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
-            loseBet()
+        // IF DEALER AND USER HAVE DIFFERENET SCORES
+        if (user.score !== dealer.score) {
+            // User has blackjack and dealer doesn't have blackjack
+            if (checkForBlackjack(user)) {
+                user.wins++
+                setMessage("You win with Blackjack!", "alert alert-success")
+                displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
+                winBet()
+            }
+            // Dealer has blackjack and user doesn't have blackjack
+            else if (checkForBlackjack(dealer)) {
+                dealer.wins++
+                setMessage("The dealer wins with Blackjack!", "alert alert-danger")
+                displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
+                loseBet()
+            }
+            // User has score less than 22 and higher than dealer
+            else if (user.score <= 21 && user.score > dealer.score) {
+                user.wins++
+                setMessage('You win, congrats!', 'alert alert-success')
+                displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
+                winBet()
+            }
+            // dealer has higher score than user and did not bust
+            else {
+                dealer.wins++
+                setMessage('The dealer wins!', 'alert alert-danger')
+                displayWins(dealer.name, dealer.wins, document.querySelectorAll('.player-wins')[1])
+                loseBet()
+            }
         }
-    } else {
+        // IF DEALER AND USER HAVE THE SAME SCORE
+        else if (dealer.score === user.score) {
+            // Dealer and user have the same score and neither have blackjack
+            if (!checkForBlackjack(user) && !checkForBlackjack(dealer)) {
+                user.pushes++
+                setMessage("It's a push!", 'alert alert-warning')
+                displayWins(user.push, user.pushes, document.querySelectorAll('.player-wins')[2])
+                pushBet()
+            }
+            // Dealer and user both have 21 but user has blackjack
+            else if (dealer.score === user.score && checkForBlackjack(user)) {
+                user.wins++
+                setMessage("You win with Blackjack!", "alert alert-success")
+                displayWins(user.name, user.wins, document.querySelectorAll('.player-wins')[0])
+                winBet()
+            }
+        }
+    }
+    // Dealer has busted 
+    else {
+        //the dealer busted and the user has a score less than 22
         if (user.score <= 21) {
             user.wins++
             setMessage('The dealer busted! You win!', 'alert alert-success')
