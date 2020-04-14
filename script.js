@@ -223,8 +223,10 @@ displayCash()
 function placeBet(amount) {
     const currentBet = document.querySelectorAll('.current-bet')[0]
     user.currentBet += amount
-    currentBet.innerText = 'Current Bet: $' + user.currentBet
-    user.cash -= amount
+    if (amount <= user.cash) {
+        currentBet.innerText = 'Current Bet: $' + user.currentBet
+        user.cash -= amount
+    }
 }
 
 function resetBet() {
