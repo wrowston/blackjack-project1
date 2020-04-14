@@ -10,7 +10,7 @@ The goal of blackjack is to get the value of your cards equal to 21 or as close 
 JavaScript, HTML, CSS, Bootstrap, Netlify
 
 # Important Links
-rowstonblackjack.netlify.com
+https://rowstonblackjack.netlify.com/
 
 Images for the cards:
 https://code.google.com/archive/p/vector-playing-cards/downloads
