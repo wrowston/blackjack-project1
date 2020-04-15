@@ -231,6 +231,9 @@ function placeBet(amount) {
     if (amount <= user.cash) {
         currentBet.innerText = 'Current Bet: $' + user.currentBet
         user.cash -= amount
+        if (user.cash === 0) {
+            disableGambling()
+        }
     }
 }
 
@@ -249,8 +252,9 @@ function loseBet() {
 function winBet() {
     if (checkForBlackjack(user)) {
         user.cash += ((user.currentBet * 2) + (user.currentBet / 2))
+    } else {
+        user.cash += (user.currentBet * 2)
     }
-    user.cash += (user.currentBet * 2)
     resetBet()
     displayCash()
 }
@@ -442,6 +446,7 @@ oneBtn.addEventListener('click', () => {
 fiveBtn.addEventListener('click', () => {
     placeBet(5)
     displayCash()
+
 })
 tenBtn.addEventListener('click', () => {
     placeBet(10)
