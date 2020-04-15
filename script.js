@@ -400,6 +400,9 @@ function hit() {
         standBtn.disabled = true
         enableGambling()
     }
+    if (user.cash === 0) {
+        disableGambling()
+    }
 }
 
 function stand() {
@@ -410,6 +413,9 @@ function stand() {
     hitBtn.disabled = true
     standBtn.disabled = true
     enableGambling()
+    if (user.cash === 0) {
+        disableGambling()
+    }
 }
 
 //-------------------------------------
@@ -460,3 +466,4 @@ fiveHundredBtn.addEventListener('click', () => {
     placeBet(500)
     displayCash()
 })
+
